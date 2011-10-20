@@ -7,6 +7,15 @@ import oauth.signpost.*;
 import oauth.signpost.commonshttp.*;
 import oauth.signpost.basic.*;
 
+import org.apache.http.*;
+import org.apache.http.client.*;
+import org.apache.http.client.entity.*;
+import org.apache.http.impl.*;
+import org.apache.http.impl.client.*;
+import org.apache.http.client.methods.*;
+import org.apache.http.message.*;
+import org.apache.http.protocol.HTTP;
+
 import android.app.Activity;
 import android.util.*;
 import android.view.*;
@@ -41,6 +50,8 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         	setup_twitter_auth();
         } else {
             Log.d(TAG,"Access token: " + sp.getString("access_token", "heynow") + "\nAccess Token Secret: " + sp.getString("access_token_secret", "beep"));
+            OAuthConsumer = new CommonsHttpOAuthConsumer(consumer_key, consumer_secret);
+            OAuthConsumer.setTokenWithSecret(sp.getString("access_token", "beep"), sp.getString("access_token_secret", "beep"));
         }
         
         Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
@@ -124,6 +135,27 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     			String no_of_hours = stripped_option.split(Pattern.quote(" "))[0];
     			time_options.put(option, (Integer.parseInt(no_of_hours) * 3600));
     		}
+    	}
+    }
+    
+    public void onButtonSubmit(View v) {
+    	
+    	String tweet = ((EditText)findViewById(R.id.edittext_tweet)).getText().toString();
+    	
+    	// TODO: This is just a placeholder to test tweeting
+    	try{
+	    	HttpClient http_client = new DefaultHttpClient();
+	    	HttpPost post_tweet = new HttpPost("http://api.twitter.com/1/statuses/update.json");
+	    	
+	    	List<NameValuePair> post_params = new ArrayList<NameValuePair>();
+	    	post_params.add(new BasicNameValuePair("status", tweet));
+	    	
+	    	post_tweet.setEntity(new UrlEncodedFormEntity(post_params, HTTP.UTF_8));
+	    	
+	    	OAuthConsumer.sign(post_tweet);
+	    	http_client.execute(post_tweet);
+    	} catch (Exception e) {
+    		e.printStackTrace();
     	}
     }
     
