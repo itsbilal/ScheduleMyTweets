@@ -24,4 +24,8 @@
     			           android:layout_height="wrap_content">
     			           </Spinner>
     </LinearLayout>
+    <Button android:id="@+id/button_submit"
+        	android:text="@string/button_submit_label"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content" />
 </LinearLayout>

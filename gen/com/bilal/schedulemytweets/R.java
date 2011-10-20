@@ -17,6 +17,7 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
+        public static final int button_submit=0x7f060002;
         public static final int dropdown_duration=0x7f060001;
         public static final int edittext_tweet=0x7f060000;
     }
@@ -25,6 +26,7 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040001;
+        public static final int button_submit_label=0x7f040005;
         public static final int dropdown_duration_prompt=0x7f040002;
         public static final int duration_textview_text=0x7f040003;
         public static final int edittext_tweet_hint=0x7f040004;

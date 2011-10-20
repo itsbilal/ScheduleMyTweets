@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="/home/bilal/Downloads/signpost-core-1.2.1.1.jar"/>
+	<classpathentry kind="lib" path="/home/bilal/Downloads/signpost-commonshttp4-1.2.1.1.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
