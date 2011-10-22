@@ -8,6 +8,7 @@ import android.util.*;
 import android.view.*;
 import android.os.Bundle;
 import android.widget.*;
+import android.database.sqlite.*;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.content.*;
 import android.net.*;
@@ -19,12 +20,15 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 	
 	private Twitter twitter_instance;
 	
+	SQLiteTweetDB tweet_db_helper;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        tweet_db_helper = new SQLiteTweetDB(this);
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
         
         if (sp.contains("access_token") != true) {
@@ -46,7 +50,6 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown_duration.setAdapter(adapter);
         dropdown_duration.setOnItemSelectedListener(this);
-        
         
         
         fill_time_options();
@@ -83,7 +86,11 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	String tweet = ((EditText)findViewById(R.id.edittext_tweet)).getText().toString();
     	
     	// TODO: This is just a placeholder to test tweeting
-    	twitter_instance.tweet(tweet);
+    	// twitter_instance.tweet(tweet);
+    	
+    	SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
+    	
+    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" + tweet + "', " + ((long)System.currentTimeMillis() / 1000) + ");");
     }
     
     public void onItemSelected(AdapterView<?> parent,

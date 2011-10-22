@@ -1,5 +1,6 @@
 package com.bilal.schedulemytweets;
 
+import java.io.*;
 import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,18 +97,27 @@ public class Twitter {
     	}
     }
     
-    public void tweet(String tweet_text) {
+    public void tweet(final String tweet_text) {
     	try{
-	    	HttpClient http_client = new DefaultHttpClient();
-	    	HttpPost post_tweet = new HttpPost("http://api.twitter.com/1/statuses/update.json");
-	    	
-	    	List<NameValuePair> post_params = new ArrayList<NameValuePair>();
-	    	post_params.add(new BasicNameValuePair("status", tweet_text));
-	    	
-	    	post_tweet.setEntity(new UrlEncodedFormEntity(post_params, HTTP.UTF_8));
-	    	
-	    	OAuthConsumer.sign(post_tweet);
-	    	http_client.execute(post_tweet);
+	    	new Thread(new Runnable(){
+	    		public void run(){
+	    			try {
+		    			HttpClient http_client = new DefaultHttpClient();
+		    	    	HttpPost post_tweet = new HttpPost("http://api.twitter.com/1/statuses/update.json");
+		    	    	
+		    	    	List<NameValuePair> post_params = new ArrayList<NameValuePair>();
+		    	    	post_params.add(new BasicNameValuePair("status", tweet_text));
+		    	    	
+		    	    	
+						post_tweet.setEntity(new UrlEncodedFormEntity(post_params, HTTP.UTF_8));
+						
+						OAuthConsumer.sign(post_tweet);
+		    	    	http_client.execute(post_tweet);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}).start();
 	    	
 	    	Log.d(TAG,"Tweeted: " + tweet_text);
     	} catch (Exception e) {
