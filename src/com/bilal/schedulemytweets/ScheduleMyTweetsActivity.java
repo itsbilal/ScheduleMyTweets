@@ -42,6 +42,11 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
             //OAuthConsumer = new CommonsHttpOAuthConsumer(consumer_key, consumer_secret);
             //OAuthConsumer.setTokenWithSecret(sp.getString("access_token", "beep"), sp.getString("access_token_secret", "beep"));
             twitter_instance = new Twitter (sp.getString("access_token", "beep"), sp.getString("access_token_secret", "beep"));
+            
+            // Start the service
+            Intent serviceIntent = new Intent(this, ScheduleMyTweetsService.class);
+            serviceIntent.putExtra("twitter_instance", twitter_instance);
+            startService(serviceIntent);
         }
         
         Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
@@ -50,10 +55,6 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown_duration.setAdapter(adapter);
         dropdown_duration.setOnItemSelectedListener(this);
-        
-        // Start the service
-        Intent serviceIntent = new Intent(this, ScheduleMyTweetsService.class);
-        startService(serviceIntent);
         
         fill_time_options();
     }
@@ -68,6 +69,11 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         Uri uri = intent.getData();
         
         twitter_instance.store_access_token(settings, uri);
+        if (uri != null && uri.toString().startsWith("app://schedulemytweets")) {
+	        Intent serviceIntent = new Intent(this, ScheduleMyTweetsService.class);
+	        serviceIntent.putExtra("twitter_instance", twitter_instance);
+	        startService(serviceIntent);
+        }
     }
     
     private void fill_time_options() {

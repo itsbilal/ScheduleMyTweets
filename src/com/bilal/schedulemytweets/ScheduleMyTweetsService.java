@@ -19,6 +19,8 @@ public class ScheduleMyTweetsService extends Service {
 	private SQLiteTweetDB tweet_db_helper;
 	private SQLiteDatabase tweet_db;
 	
+	private Twitter twitter_instance;
+	
 	private class timer_task extends TimerTask {
 
 		@Override
@@ -36,7 +38,9 @@ public class ScheduleMyTweetsService extends Service {
 				cursor_result.moveToFirst();
 				
 				while (cursor_result.isAfterLast() == false) {
-					Log.d(TAG,"Cursor result: " + cursor_result.getString(0));
+					String tweet_text = cursor_result.getString(0);
+					Log.d(TAG,"Cursor result: " + tweet_text);
+					twitter_instance.tweet(tweet_text);
 					cursor_result.moveToNext();
 				}
 				
@@ -62,6 +66,8 @@ public class ScheduleMyTweetsService extends Service {
 		tweet_db = tweet_db_helper.getWritableDatabase();
 		
 		timer.scheduleAtFixedRate(new timer_task(), 0, 60000);
+		
+		twitter_instance = (Twitter)intent.getParcelableExtra("twitter_instance");
 		
 		return START_STICKY;
 	}

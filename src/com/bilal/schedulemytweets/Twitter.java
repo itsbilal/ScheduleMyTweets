@@ -1,7 +1,5 @@
 package com.bilal.schedulemytweets;
 
-import java.io.*;
-import java.lang.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,6 @@ import oauth.signpost.basic.*;
 import org.apache.http.*;
 import org.apache.http.client.*;
 import org.apache.http.client.entity.*;
-import org.apache.http.impl.*;
 import org.apache.http.impl.client.*;
 import org.apache.http.client.methods.*;
 import org.apache.http.message.*;
@@ -23,7 +20,7 @@ import android.util.Log;
 import android.content.*;
 import android.os.*;
 
-public class Twitter {
+public class Twitter implements Parcelable {
 	
 	private CommonsHttpOAuthConsumer OAuthConsumer;
     private OAuthProvider OAuthProvider;
@@ -33,18 +30,33 @@ public class Twitter {
 
 	private static final String CALLBACKURL = "app://schedulemytweets";
 	
+	private String access_token;
+	private String access_token_secret;
+	
 	private static final String TAG="ScheduleMyTweets";
 	
-	public Twitter(String access_token, String access_token_secret) {
-		if (access_token != null) {
+	public Twitter(String access_token_s, String access_token_secret_s) {
+		if (access_token_s != null) {
     	    OAuthConsumer = new CommonsHttpOAuthConsumer(consumer_key, consumer_secret);
-    	    OAuthConsumer.setTokenWithSecret(access_token, access_token_secret);
+    	    OAuthConsumer.setTokenWithSecret(access_token_s, access_token_secret_s);
+    	    access_token = new String(access_token_s);
+    	    access_token_secret = new String(access_token_secret_s);
 		}
 		
 	}
 	
 	private Twitter (Parcel parcel) {
-		
+		// You can always assume that the access tokens are already supplied
+	    access_token = parcel.readString();
+	    access_token_secret = parcel.readString();
+		OAuthConsumer = new CommonsHttpOAuthConsumer(consumer_key, consumer_secret);
+	    OAuthConsumer.setTokenWithSecret(access_token, access_token_secret);
+	    
+	    Log.d(TAG, "Unpacking parcel");
+	    Log.d(TAG,"Access token: " + access_token);
+	    Log.d(TAG,"Access token secret: " + access_token_secret);
+	    Log.d(TAG,"Consumer Key: " + consumer_key);
+	    Log.d(TAG,"Consumer Secret: " + consumer_secret);
 	}
 	
 	public void store_access_token(SharedPreferences settings, Uri uri) {
@@ -62,17 +74,17 @@ public class Twitter {
                 // Retrieve the access tokens
 
                 OAuthProvider.retrieveAccessToken(OAuthConsumer, verifier);
-                String userKey = OAuthConsumer.getToken();
-                String userSecret = OAuthConsumer.getTokenSecret();
+                access_token = OAuthConsumer.getToken();
+                access_token_secret = OAuthConsumer.getTokenSecret();
 
                 // Save the access tokens in shared preferences
 
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putString("access_token", userKey);
-                editor.putString("access_token_secret", userSecret);
+                editor.putString("access_token", access_token);
+                editor.putString("access_token_secret", access_token_secret);
                 editor.commit();
                 
-                Log.d(TAG,"Access token: " + userKey + "\nAccess Token Secret: " + userSecret);
+                Log.d(TAG,"Access token: " + access_token + "\nAccess Token Secret: " + access_token_secret);
 
             } catch(Exception e){
             	e.printStackTrace();
@@ -129,4 +141,32 @@ public class Twitter {
     		e.printStackTrace();
     	}
     }
+
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		// We don't give a shit about this
+		return 0;
+	}
+
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(access_token);
+		dest.writeString(access_token_secret);
+		
+		Log.d(TAG, "Packing parcel..");
+		Log.d(TAG,"Access token: " + access_token);
+	    Log.d(TAG,"Access token secret: " + access_token_secret);
+	    Log.d(TAG,"Consumer Key: " + consumer_key);
+	    Log.d(TAG,"Consumer Secret: " + consumer_secret);
+	}
+	
+    public static final Parcelable.Creator<Twitter> CREATOR
+    		= new Parcelable.Creator<Twitter>() {
+    				public Twitter createFromParcel(Parcel in) {
+					    return new Twitter(in);
+					}
+					
+					public Twitter[] newArray(int size) {
+					    return new Twitter[size];
+					}
+			};
 }
