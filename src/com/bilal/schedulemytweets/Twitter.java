@@ -21,6 +21,7 @@ import org.apache.http.protocol.HTTP;
 import android.net.Uri;
 import android.util.Log;
 import android.content.*;
+import android.os.*;
 
 public class Twitter {
 	
@@ -39,6 +40,10 @@ public class Twitter {
     	    OAuthConsumer = new CommonsHttpOAuthConsumer(consumer_key, consumer_secret);
     	    OAuthConsumer.setTokenWithSecret(access_token, access_token_secret);
 		}
+		
+	}
+	
+	private Twitter (Parcel parcel) {
 		
 	}
 	

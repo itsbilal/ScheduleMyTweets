@@ -5,6 +5,7 @@ import android.os.*;
 import android.content.*;
 import android.util.*;
 import android.database.sqlite.*;
+import android.database.*;
 
 import java.util.*;
 
@@ -25,8 +26,24 @@ public class ScheduleMyTweetsService extends Service {
 			// TODO Auto-generated method stub
 			Log.d(TAG,"Hi! Its working!");
 			
-			
-			
+			try {
+				String sql_query = "SELECT tweet,time FROM tweets WHERE time BETWEEN " +
+									(((long)System.currentTimeMillis() / 1000) - ((long)30)) + " AND " +
+									(((long)System.currentTimeMillis() / 1000) + ((long)30))+ ";";
+				
+				Cursor cursor_result = tweet_db.rawQuery(sql_query, null);
+				
+				cursor_result.moveToFirst();
+				
+				while (cursor_result.isAfterLast() == false) {
+					Log.d(TAG,"Cursor result: " + cursor_result.getString(0));
+					cursor_result.moveToNext();
+				}
+				
+				cursor_result.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

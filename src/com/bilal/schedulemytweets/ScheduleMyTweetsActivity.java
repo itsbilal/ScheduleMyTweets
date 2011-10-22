@@ -51,7 +51,9 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         dropdown_duration.setAdapter(adapter);
         dropdown_duration.setOnItemSelectedListener(this);
         
-        startService(new Intent(this, ScheduleMyTweetsService.class));
+        // Start the service
+        Intent serviceIntent = new Intent(this, ScheduleMyTweetsService.class);
+        startService(serviceIntent);
         
         fill_time_options();
     }
