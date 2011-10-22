@@ -51,6 +51,7 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         dropdown_duration.setAdapter(adapter);
         dropdown_duration.setOnItemSelectedListener(this);
         
+        startService(new Intent(this, ScheduleMyTweetsService.class));
         
         fill_time_options();
     }
@@ -85,12 +86,18 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	
     	String tweet = ((EditText)findViewById(R.id.edittext_tweet)).getText().toString();
     	
+    	Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
+    	
+    	long selected_time_after = time_options.get(dropdown_duration.getSelectedItem());
+    	
     	// TODO: This is just a placeholder to test tweeting
     	// twitter_instance.tweet(tweet);
     	
     	SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
     	
-    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" + tweet + "', " + ((long)System.currentTimeMillis() / 1000) + ");");
+    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
+    					 tweet + "', " + (((long)System.currentTimeMillis() / 1000) +
+    							          selected_time_after) + ");");
     }
     
     public void onItemSelected(AdapterView<?> parent,
