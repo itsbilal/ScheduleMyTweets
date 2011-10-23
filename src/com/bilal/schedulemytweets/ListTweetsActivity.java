@@ -1,12 +1,11 @@
 package com.bilal.schedulemytweets;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Window;
+import android.app.*;
+import android.content.*;
+import android.net.*;
+import android.os.*;
+import android.util.*;
+import android.view.*;
 
 public class ListTweetsActivity extends Activity {
 	
@@ -60,4 +59,9 @@ public class ListTweetsActivity extends Activity {
     	    startService(serviceIntent);
         }
     }
+	
+	public void onNewTweetClick(View v) {
+		Intent start_new_tweet_activity = new Intent(this, ScheduleMyTweetsActivity.class);
+		startActivity(start_new_tweet_activity);
+	}
 }
