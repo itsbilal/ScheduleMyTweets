@@ -6,7 +6,7 @@
     <string name="duration_textview_text">When to send tweet?</string>
     <string name="edittext_tweet_hint">Enter tweet</string>
     <string name="button_submit_label">Submit</string>
-    <string name="titlebar_text">Schedule My Tweets</string>
+    <string name="titlebar_text">List of Scheduled Tweets</string>
     <string-array name="dropdown_duration_options">
         <item>After 5 minutes</item>
         <item>After 10 minutes</item>
