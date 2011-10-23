@@ -26,7 +26,9 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.main);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         
         tweet_db_helper = new SQLiteTweetDB(this);
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
