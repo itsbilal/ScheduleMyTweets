@@ -56,6 +56,25 @@ public class ListTweetsActivity extends ListActivity {
             serviceIntent.putExtra("twitter_instance", twitter_instance);
             startService(serviceIntent);
         }
+        
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// Create a Tweet object out of the view arg1 and
+				// send it to TweetDetails activity
+				RelativeLayout layout = (RelativeLayout) arg1;
+				TextView textview_tweet = (TextView)layout.findViewById(R.id.list_tweet_tweet);
+				String tweet_text = (String)textview_tweet.getText();
+				long tweet_time = (Long)layout.getTag(R.id.id2);
+				Integer tweet_id = (Integer)layout.getTag(R.id.id1);
+				Tweet tweet = new Tweet(tweet_text, tweet_time, tweet_id);
+				
+				Intent startTweetDetails = new Intent(ListTweetsActivity.this, TweetDetails.class);
+				startTweetDetails.putExtra("tweet", tweet);
+				startActivity(startTweetDetails);
+			}
+		});
 	}
 	
 	@Override

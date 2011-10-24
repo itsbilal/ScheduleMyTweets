@@ -38,7 +38,13 @@ public class TweetListAdapter extends BaseAdapter {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 		
-		RelativeLayout layout = (RelativeLayout)inflater.inflate(R.layout.list_tweet_item, null, false);
+		RelativeLayout layout = (RelativeLayout)inflater.inflate(R.layout.list_tweet_item, arg2, false);
+		try {
+			layout.setTag(R.id.id1, tweet.get_tweet_id());
+			layout.setTag(R.id.id2, tweet.get_tweet_time());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		TextView tweet_text_view = (TextView)layout.findViewById(R.id.list_tweet_tweet);
 		tweet_text_view.setText(tweet.get_tweet_text());
