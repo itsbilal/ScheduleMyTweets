@@ -19,12 +19,10 @@ public class TweetListAdapter extends BaseAdapter {
 	}
 
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return tweets_list.size();
 	}
 
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return tweets_list.get(arg0);
 	}
 

@@ -9,6 +9,8 @@ import android.os.*;
 import android.util.*;
 import android.view.*;
 import android.widget.*;
+import android.database.*;
+import android.database.sqlite.*;
 
 public class ListTweetsActivity extends ListActivity {
 	
@@ -29,16 +31,14 @@ public class ListTweetsActivity extends ListActivity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         
         tweets_list = new ArrayList<Tweet>();
-        //tweets_list.add(new Tweet("Hi",1231242,1)); // TODO: This is just a test
+        //tweets_list.add(new Tweet("Hi",1231242,1)); // This is just a test
         tweets_list_adapter = new TweetListAdapter(this,tweets_list);
         setListAdapter(tweets_list_adapter);
         
-        /*TextView empty_text_view = new TextView(this);
-        empty_text_view.setText(getString(R.string.empty_tweet_list_text));
-        getListView().setEmptyView(empty_text_view);*/
-        
         tweet_db_helper = new SQLiteTweetDB(this);
         SharedPreferences sp = getPreferences(MODE_PRIVATE);
+        
+        fill_list_view_with_tweets();
         
         if (sp.contains("access_token") != true) {
         	
@@ -57,7 +57,41 @@ public class ListTweetsActivity extends ListActivity {
             startService(serviceIntent);
         }
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		fill_list_view_with_tweets();
+	}
         
+	private void fill_list_view_with_tweets() {
+		try{
+			tweets_list.clear();
+			
+			SQLiteDatabase tweets_db = tweet_db_helper.getReadableDatabase();
+			
+			String query = "SELECT * FROM tweets WHERE time >= " + ((long)System.currentTimeMillis() / 1000);
+			Cursor cursor = tweets_db.rawQuery(query, null);
+			if (cursor == null) { // No results
+				return;
+			}
+			cursor.moveToFirst();
+			
+			while (cursor.isAfterLast() == false) {
+				Tweet current_tweet = new Tweet(cursor.getString(1),
+												cursor.getLong(2),
+												cursor.getInt(0));
+				tweets_list.add(current_tweet);
+				
+				cursor.moveToNext();
+			}
+			((BaseAdapter) tweets_list_adapter).notifyDataSetChanged();
+			tweets_db.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
     protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);

@@ -8,10 +8,9 @@ import android.util.*;
 import android.view.*;
 import android.os.Bundle;
 import android.widget.*;
+import android.content.*;
 import android.database.sqlite.*;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.content.*;
-import android.net.*;
 
 public class ScheduleMyTweetsActivity extends Activity implements OnItemSelectedListener {
 	private Hashtable<String,Integer> time_options = new Hashtable<String,Integer>();
@@ -71,6 +70,11 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
     					 tweet + "', " + (((long)System.currentTimeMillis() / 1000) +
     							          selected_time_after) + ");");
+    	tweet_db.close();
+    	
+    	Intent backToListTweets = new Intent(this, ListTweetsActivity.class);
+    	finish();
+    	startActivity(backToListTweets);
     }
     
     public void onItemSelected(AdapterView<?> parent,
