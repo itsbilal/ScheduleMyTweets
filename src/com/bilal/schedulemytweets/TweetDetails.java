@@ -4,8 +4,10 @@ import java.util.*;
 
 import android.app.*;
 import android.os.*;
-import android.view.Window;
+import android.view.*;
 import android.widget.*;
+import android.database.sqlite.*;
+import android.content.*;
 
 public class TweetDetails extends Activity {
 	private SQLiteTweetDB tweet_db_helper;
@@ -19,7 +21,6 @@ public class TweetDetails extends Activity {
 		setContentView(R.layout.tweet_details);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title3);
 
-		
 		tweet_db_helper = new SQLiteTweetDB(this);
 		
 		tweet = (Tweet)getIntent().getParcelableExtra("tweet");
@@ -37,5 +38,19 @@ public class TweetDetails extends Activity {
 		Date date = calendar.getTime();
 		
 		time_text_view.setText(date.toString());
+	}
+	
+	public void onTweetDeleteClick(View v) {
+		SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
+		String query = "DELETE FROM tweets WHERE id = " + tweet.get_tweet_id();
+		
+		// TODO: Add a prompt before the tweet is deleted
+		tweet_db.execSQL(query); 
+		
+		tweet_db.close();
+		
+		Intent goBackToListTweets = new Intent(this, ListTweetsActivity.class);
+		finish();
+		startActivity(goBackToListTweets);
 	}
 }

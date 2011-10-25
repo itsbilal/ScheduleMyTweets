@@ -35,6 +35,7 @@
     <Button android:id="@+id/button_tweet_delete"
         	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
-        	android:text="@string/delete_tweet_button_text"/>
+        	android:text="@string/delete_tweet_button_text"
+        	android:onClick="onTweetDeleteClick"/>
     
 </LinearLayout>

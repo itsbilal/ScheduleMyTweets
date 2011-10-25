@@ -31,7 +31,6 @@ public class ListTweetsActivity extends ListActivity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         
         tweets_list = new ArrayList<Tweet>();
-        //tweets_list.add(new Tweet("Hi",1231242,1)); // This is just a test
         tweets_list_adapter = new TweetListAdapter(this,tweets_list);
         setListAdapter(tweets_list_adapter);
         
