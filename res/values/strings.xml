@@ -12,6 +12,7 @@
     <string name="empty_tweet_list_text">No tweets scheduled yet!</string>
     <string name="tweet_details_time_label">Scheduled for:</string>
     <string name="delete_tweet_button_text">Delete this tweet</string>
+    <string name="menu_logout">Logout</string>
     <string-array name="dropdown_duration_options">
         <item>After 5 minutes</item>
         <item>After 10 minutes</item>

@@ -41,6 +41,8 @@ public class ListTweetsActivity extends ListActivity {
         
         if (sp.contains("access_token") != true) {
         	
+        	// TODO: Welcome dialog box
+        	
         	twitter_instance = new Twitter(null, null);
         	
         	// Open OAuth login page
@@ -80,6 +82,28 @@ public class ListTweetsActivity extends ListActivity {
 	public void onResume() {
 		super.onResume();
 		fill_list_view_with_tweets();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menu_inflater = getMenuInflater();
+		menu_inflater.inflate(R.menu.menu_list_tweets, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		 case R.id.menu_logout:
+			 // TODO: Prompt the user before logging out
+			 SharedPreferences.Editor sp = getPreferences(MODE_PRIVATE).edit();
+			 sp.clear();
+			 sp.commit();
+			 finish();
+			 return true;
+		 default:
+			 return super.onOptionsItemSelected(item);
+		}
 	}
         
 	private void fill_list_view_with_tweets() {

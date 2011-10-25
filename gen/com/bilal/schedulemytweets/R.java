@@ -28,6 +28,7 @@ public final class R {
         public static final int id2=0x7f050001;
         public static final int list_tweet_time=0x7f050003;
         public static final int list_tweet_tweet=0x7f050002;
+        public static final int menu_logout=0x7f05000a;
         public static final int tweet_details_text_view=0x7f050007;
         public static final int tweet_details_time_view=0x7f050008;
     }
@@ -40,6 +41,9 @@ public final class R {
         public static final int window_title2=0x7f030005;
         public static final int window_title3=0x7f030006;
     }
+    public static final class menu {
+        public static final int menu_list_tweets=0x7f090000;
+    }
     public static final class string {
         public static final int app_name=0x7f060001;
         public static final int button_submit_label=0x7f060005;
@@ -49,6 +53,7 @@ public final class R {
         public static final int edittext_tweet_hint=0x7f060004;
         public static final int empty_tweet_list_text=0x7f060009;
         public static final int hello=0x7f060000;
+        public static final int menu_logout=0x7f06000c;
         public static final int titlebar_text=0x7f060006;
         public static final int titlebar_text_newtweet=0x7f060007;
         public static final int titlebar_text_tweetdetail=0x7f060008;
