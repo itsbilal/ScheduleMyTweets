@@ -25,8 +25,7 @@ public class ScheduleMyTweetsService extends Service {
 
 		@Override
 		public void run() {
-			// TODO Auto-generated method stub
-			Log.d(TAG,"Hi! Its working!");
+			Log.d(TAG,"Service run");
 			
 			try {
 				String sql_query = "SELECT tweet,time FROM tweets WHERE time BETWEEN " +
@@ -53,14 +52,12 @@ public class ScheduleMyTweetsService extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
 	public int onStartCommand (Intent intent, int flags, int startId)
 	{
-		//me = this;
 		
 		tweet_db_helper = new SQLiteTweetDB(this);
 		tweet_db = tweet_db_helper.getWritableDatabase();

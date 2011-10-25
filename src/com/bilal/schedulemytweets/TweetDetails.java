@@ -41,16 +41,30 @@ public class TweetDetails extends Activity {
 	}
 	
 	public void onTweetDeleteClick(View v) {
-		SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
-		String query = "DELETE FROM tweets WHERE id = " + tweet.get_tweet_id();
+		final SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
+		final String query = "DELETE FROM tweets WHERE id = " + tweet.get_tweet_id();
 		
-		// TODO: Add a prompt before the tweet is deleted
-		tweet_db.execSQL(query); 
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.delete_tweet_dialog_message));
+		builder.setCancelable(true);
+		builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				tweet_db.execSQL(query); 
+				
+				tweet_db.close();
+				
+				Intent goBackToListTweets = new Intent(TweetDetails.this, ListTweetsActivity.class);
+				finish();
+				startActivity(goBackToListTweets);
+			}
+		})
+		.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		AlertDialog delete_dialog = builder.create();
+		delete_dialog.show();
 		
-		tweet_db.close();
-		
-		Intent goBackToListTweets = new Intent(this, ListTweetsActivity.class);
-		finish();
-		startActivity(goBackToListTweets);
 	}
 }

@@ -41,12 +41,23 @@ public class ListTweetsActivity extends ListActivity {
         
         if (sp.contains("access_token") != true) {
         	
-        	// TODO: Welcome dialog box
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setTitle(getString(R.string.welcome_dialog_title));
+        	builder.setMessage(getString(R.string.welcome_dialog_message));
+        	builder.setCancelable(false);
+        	builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+					
+					twitter_instance = new Twitter(null, null);
+		        	
+		        	// Open OAuth login page
+		        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter_instance.setup_twitter_auth())));
+				}
+			});
+        	AlertDialog welcome_dialog = builder.create();
+        	welcome_dialog.show();
         	
-        	twitter_instance = new Twitter(null, null);
-        	
-        	// Open OAuth login page
-        	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(twitter_instance.setup_twitter_auth())));
         } else {
             Log.d(TAG,"Access token: " + sp.getString("access_token", "heynow") + "\nAccess Token Secret: " + sp.getString("access_token_secret", "beep"));
             
@@ -95,11 +106,27 @@ public class ListTweetsActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		 case R.id.menu_logout:
-			 // TODO: Prompt the user before logging out
-			 SharedPreferences.Editor sp = getPreferences(MODE_PRIVATE).edit();
-			 sp.clear();
-			 sp.commit();
-			 finish();
+			 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			 builder.setMessage(getString(R.string.logout_dialog_message));
+			 builder.setCancelable(true);
+			 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					SharedPreferences.Editor sp = getPreferences(MODE_PRIVATE).edit();
+					sp.clear();
+					sp.commit();
+					finish();
+				}
+			 });
+			 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			 });
+			 AlertDialog logout_dialog = builder.create();
+			 logout_dialog.show();
+			 
 			 return true;
 		 default:
 			 return super.onOptionsItemSelected(item);
@@ -147,6 +174,17 @@ public class ListTweetsActivity extends ListActivity {
     	    Intent serviceIntent = new Intent(this, ScheduleMyTweetsService.class);
     	    serviceIntent.putExtra("twitter_instance", twitter_instance);
     	    startService(serviceIntent);
+    	    
+    	    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	    builder.setMessage(getString(R.string.login_dialog_message));
+    	    builder.setCancelable(true);
+    	    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					return;
+				}
+			});
+    	    AlertDialog login_dialog = builder.create();
+    	    login_dialog.show();
         }
     }
 	

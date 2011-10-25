@@ -48,16 +48,21 @@ public final class R {
         public static final int app_name=0x7f060001;
         public static final int button_submit_label=0x7f060005;
         public static final int delete_tweet_button_text=0x7f06000b;
+        public static final int delete_tweet_dialog_message=0x7f060011;
         public static final int dropdown_duration_prompt=0x7f060002;
         public static final int duration_textview_text=0x7f060003;
         public static final int edittext_tweet_hint=0x7f060004;
         public static final int empty_tweet_list_text=0x7f060009;
         public static final int hello=0x7f060000;
+        public static final int login_dialog_message=0x7f06000f;
+        public static final int logout_dialog_message=0x7f060010;
         public static final int menu_logout=0x7f06000c;
         public static final int titlebar_text=0x7f060006;
         public static final int titlebar_text_newtweet=0x7f060007;
         public static final int titlebar_text_tweetdetail=0x7f060008;
         public static final int tweet_details_time_label=0x7f06000a;
+        public static final int welcome_dialog_message=0x7f06000e;
+        public static final int welcome_dialog_title=0x7f06000d;
     }
     public static final class style {
         public static final int CustomTheme=0x7f040000;

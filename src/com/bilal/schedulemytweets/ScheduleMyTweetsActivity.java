@@ -62,9 +62,6 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	
     	long selected_time_after = time_options.get(dropdown_duration.getSelectedItem());
     	
-    	// TODO: This is just a placeholder to test tweeting
-    	// twitter_instance.tweet(tweet);
-    	
     	SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
     	
     	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
