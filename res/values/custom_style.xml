@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
  
-    <style name="CustomTheme" parent="android:Theme">
+    <style name="CustomTheme" parent="android:Theme.Light">
         <item name="android:windowTitleSize">35dip</item>
         <item name="android:windowTitleBackgroundStyle">@color/titlebar_gradient</item>
     </style>

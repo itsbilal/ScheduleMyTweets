@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="35dip"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dip"
+    android:background="@color/titlebar_gradient">
+    
+    <TextView android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:textColor="#FFFFFF"
+        	android:text="@string/titlebar_text_newtweet"
+        	android:shadowColor="#555555"
+			android:shadowDx="3.0"
+			android:shadowDy="3.0"
+			android:shadowRadius="3.0" />
+    
+</LinearLayout>

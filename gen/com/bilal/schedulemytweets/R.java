@@ -21,6 +21,7 @@ public final class R {
     }
     public static final class id {
         public static final int button_submit=0x7f050006;
+        public static final int button_tweet_delete=0x7f050009;
         public static final int dropdown_duration=0x7f050005;
         public static final int edittext_tweet=0x7f050004;
         public static final int id1=0x7f050000;
@@ -36,17 +37,22 @@ public final class R {
         public static final int main=0x7f030002;
         public static final int tweet_details=0x7f030003;
         public static final int window_title=0x7f030004;
+        public static final int window_title2=0x7f030005;
+        public static final int window_title3=0x7f030006;
     }
     public static final class string {
         public static final int app_name=0x7f060001;
         public static final int button_submit_label=0x7f060005;
+        public static final int delete_tweet_button_text=0x7f06000b;
         public static final int dropdown_duration_prompt=0x7f060002;
         public static final int duration_textview_text=0x7f060003;
         public static final int edittext_tweet_hint=0x7f060004;
-        public static final int empty_tweet_list_text=0x7f060007;
+        public static final int empty_tweet_list_text=0x7f060009;
         public static final int hello=0x7f060000;
         public static final int titlebar_text=0x7f060006;
-        public static final int tweet_details_time_label=0x7f060008;
+        public static final int titlebar_text_newtweet=0x7f060007;
+        public static final int titlebar_text_tweetdetail=0x7f060008;
+        public static final int tweet_details_time_label=0x7f06000a;
     }
     public static final class style {
         public static final int CustomTheme=0x7f040000;
