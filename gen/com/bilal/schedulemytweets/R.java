@@ -67,6 +67,7 @@ public final class R {
         public static final int titlebar_text=0x7f060006;
         public static final int titlebar_text_newtweet=0x7f060007;
         public static final int titlebar_text_tweetdetail=0x7f060008;
+        public static final int toast_time_unset=0x7f060015;
         public static final int tweet_details_time_label=0x7f06000a;
         public static final int welcome_dialog_message=0x7f06000e;
         public static final int welcome_dialog_title=0x7f06000d;

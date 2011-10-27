@@ -20,6 +20,8 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 	private Integer mYear;
 	private Integer mMonth;
 	private Integer mDay;
+	private Integer mHour;
+	private Integer mMinute;
 	
 	SQLiteTweetDB tweet_db_helper;
 	
@@ -51,6 +53,8 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH);
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        mMinute = null;
     }
     
     
@@ -69,30 +73,49 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     }
     
     public void onButtonSubmit(View v) {
+    	try{
     	
     	String tweet = ((EditText)findViewById(R.id.edittext_tweet)).getText().toString();
     	
     	SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
     	
+    	long selected_time = 0;
+    	
     	if (((RadioButton)findViewById(R.id.radiobutton_time)).isChecked() == true) {
+    		
+    		if (mMinute == null) {  // Time is not set
+    			tweet_db.close();
+    			
+    			Toast.makeText(this, getString(R.string.toast_time_unset), Toast.LENGTH_SHORT).show();
+    			return;
+    		}
+    		
+    		Calendar calendar = Calendar.getInstance();
+    		calendar.set(mYear, mMonth, mDay);
+    		calendar.set(Calendar.HOUR_OF_DAY, mHour);
+    		calendar.set(Calendar.MINUTE, mMinute);
+    		selected_time = (calendar.getTimeInMillis() / 1000);
     		
     	} else {
 	    	Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
 	    	
-	    	long selected_time_after = time_options.get(dropdown_duration.getSelectedItem());
-	    	
-	    	
-	    	
-	    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
-	    					 tweet + "', " + (((long)System.currentTimeMillis() / 1000) +
-	    							          selected_time_after) + ");");
+	    	selected_time = time_options.get(dropdown_duration.getSelectedItem());
+	    	selected_time = selected_time + ((long)System.currentTimeMillis() / 1000);
     	}
+    	
+    	String sql_exec = "INSERT INTO tweets (tweet, time) VALUES ('" +
+				 tweet + "', " + selected_time + ");";
+    	Log.d(TAG, sql_exec);
+    	tweet_db.execSQL(sql_exec);
     	
     	tweet_db.close();
     	
     	Intent backToListTweets = new Intent(this, ListTweetsActivity.class);
     	finish();
     	startActivity(backToListTweets);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
     public void onSelectDateClick(View v) {
@@ -123,13 +146,31 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     
     public void onSelectTimeClick(View v) {
     	((RadioButton)findViewById(R.id.radiobutton_time)).setChecked(true);
-
+    	
+    	TimePickerDialog.OnTimeSetListener mOnTimeListener
+    					= new TimePickerDialog.OnTimeSetListener() {
+							public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+								mHour = hourOfDay;
+								mMinute = minute;
+								
+								String button_label_string = Integer.toString(mHour);
+								button_label_string += ":" + mMinute.toString(); 
+								((Button)findViewById(R.id.button_select_time)).setText(button_label_string);
+							}
+						};
+		
+		Calendar calendar = Calendar.getInstance();
+		Integer current_minute = calendar.get(Calendar.MINUTE);
+		TimePickerDialog tpd = new TimePickerDialog(this, mOnTimeListener, mHour, current_minute, false);
+		tpd.show();
     }
     
     public void onItemSelected(AdapterView<?> parent,
         View view, int pos, long id) {
           String selected_item = parent.getItemAtPosition(pos).toString();
           Log.d(TAG,time_options.get(selected_item).toString());
+          
+          ((RadioButton)findViewById(R.id.radiobutton_duration)).setChecked(true);
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
