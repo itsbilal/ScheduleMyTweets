@@ -20,17 +20,21 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int button_submit=0x7f050006;
-        public static final int button_tweet_delete=0x7f050009;
-        public static final int dropdown_duration=0x7f050005;
+        public static final int button_select_date=0x7f050008;
+        public static final int button_select_time=0x7f050009;
+        public static final int button_submit=0x7f05000a;
+        public static final int button_tweet_delete=0x7f05000d;
+        public static final int dropdown_duration=0x7f050006;
         public static final int edittext_tweet=0x7f050004;
         public static final int id1=0x7f050000;
         public static final int id2=0x7f050001;
         public static final int list_tweet_time=0x7f050003;
         public static final int list_tweet_tweet=0x7f050002;
-        public static final int menu_logout=0x7f05000a;
-        public static final int tweet_details_text_view=0x7f050007;
-        public static final int tweet_details_time_view=0x7f050008;
+        public static final int menu_logout=0x7f05000e;
+        public static final int radiobutton_duration=0x7f050005;
+        public static final int radiobutton_time=0x7f050007;
+        public static final int tweet_details_text_view=0x7f05000b;
+        public static final int tweet_details_time_view=0x7f05000c;
     }
     public static final class layout {
         public static final int list_tweet_item=0x7f030000;
@@ -46,6 +50,8 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060001;
+        public static final int button_select_date_text=0x7f060013;
+        public static final int button_select_time_text=0x7f060014;
         public static final int button_submit_label=0x7f060005;
         public static final int delete_tweet_button_text=0x7f06000b;
         public static final int delete_tweet_dialog_message=0x7f060011;
@@ -57,6 +63,7 @@ public final class R {
         public static final int login_dialog_message=0x7f06000f;
         public static final int logout_dialog_message=0x7f060010;
         public static final int menu_logout=0x7f06000c;
+        public static final int radiobutton_time_text=0x7f060012;
         public static final int titlebar_text=0x7f060006;
         public static final int titlebar_text_newtweet=0x7f060007;
         public static final int titlebar_text_tweetdetail=0x7f060008;

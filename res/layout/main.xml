@@ -5,29 +5,60 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-    <EditText android:id="@+id/edittext_tweet" android:layout_width="fill_parent" android:layout_height="wrap_content"
-    		  android:hint="@string/edittext_tweet_hint">
-        <requestFocus></requestFocus>
+    <EditText android:id="@+id/edittext_tweet"
+        	  android:layout_width="fill_parent"
+        	  android:layout_height="wrap_content"
+    		  android:hint="@string/edittext_tweet_hint"
+    		  android:layout_marginTop="15px">
     </EditText>
-    <LinearLayout android:orientation="horizontal"
-    			  android:layout_width="fill_parent"
-    			  android:layout_height="wrap_content"
-    			  >
-    			  <TextView android:layout_width="wrap_content"
-    			  			android:layout_height="wrap_content"
-    			  			android:text="@string/duration_textview_text"
-    			  			android:layout_gravity="center_vertical"
-    			  			></TextView>
-    			  <Spinner android:layout_weight="1"
-    			           android:id="@+id/dropdown_duration"
-    			           android:prompt="@string/dropdown_duration_prompt"
-    			           android:layout_width="wrap_content"
-    			           android:layout_height="wrap_content">
-    			           </Spinner>
-    </LinearLayout>
+    <RadioGroup android:orientation="vertical"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:paddingTop="20px">
+        <RadioButton android:layout_width="wrap_content"
+	    			      		   android:layout_height="wrap_content"
+	    			      		   android:text="@string/duration_textview_text"
+	    			      		   android:paddingTop="10px"
+	    			      		   android:id="@+id/radiobutton_duration"/>
+	    <LinearLayout android:orientation="horizontal"
+	    			  android:layout_width="fill_parent"
+	    			  android:layout_height="wrap_content"
+	    			  android:paddingBottom="40px"
+	    			  >
+	    			  
+	    			  <Spinner android:layout_weight="1"
+	    			           android:id="@+id/dropdown_duration"
+	    			           android:prompt="@string/dropdown_duration_prompt"
+	    			           android:layout_width="wrap_content"
+	    			           android:layout_height="wrap_content">
+	    			           </Spinner>
+	    </LinearLayout>
+	    <RadioButton android:layout_width="wrap_content"
+	            		 android:layout_height="wrap_content"
+	            		 android:text="@string/radiobutton_time_text"
+	            		 android:paddingTop="10px"
+	            		 android:id="@+id/radiobutton_time"/>
+	    <LinearLayout android:orientation="horizontal"
+	        		  android:layout_width="fill_parent"
+	        		  android:layout_height="wrap_content"
+	        		  android:paddingRight="15px">
+	        
+	        <Button android:id="@+id/button_select_date"
+	            	android:layout_width="fill_parent"
+	            	android:layout_weight="1.0"
+	            	android:layout_height="wrap_content"
+	            	android:text="@string/button_select_date_text" />
+	        <Button android:id="@+id/button_select_time"
+	            	android:layout_width="fill_parent"
+	            	android:layout_height="wrap_content"
+	            	android:layout_weight="1.0"
+	            	android:text="@string/button_select_time_text" />
+	    </LinearLayout>
+    </RadioGroup>
     <Button android:id="@+id/button_submit"
         	android:text="@string/button_submit_label"
-        	android:layout_width="wrap_content"
+        	android:layout_width="fill_parent"
         	android:layout_height="wrap_content"
+        	android:layout_marginTop="55px"
         	android:onClick="onButtonSubmit" />
 </LinearLayout>

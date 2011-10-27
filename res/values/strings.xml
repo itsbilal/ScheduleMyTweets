@@ -3,7 +3,7 @@
     <string name="hello">Hello World, ScheduleMyTweetsActivity!</string>
     <string name="app_name">ScheduleMyTweets</string>
     <string name="dropdown_duration_prompt">Select time</string>
-    <string name="duration_textview_text">When to send tweet?</string>
+    <string name="duration_textview_text">Select delay for tweet: </string>
     <string name="edittext_tweet_hint">Enter tweet</string>
     <string name="button_submit_label">Submit</string>
     <string name="titlebar_text">List of Scheduled Tweets</string>
@@ -18,6 +18,9 @@
     <string name="login_dialog_message">You\'ve been logged in!\n\nYou can now schedule tweets using the + button at the top right corner of the screen</string>
     <string name="logout_dialog_message">Are you sure you want to log out?</string>
     <string name="delete_tweet_dialog_message">Are you sure you want to delete this tweet?</string>
+    <string name="radiobutton_time_text">Select time for tweet:</string>
+    <string name="button_select_date_text">Select Date</string>
+    <string name="button_select_time_text">Select Time</string>
     <string-array name="dropdown_duration_options">
         <item>After 5 minutes</item>
         <item>After 10 minutes</item>
