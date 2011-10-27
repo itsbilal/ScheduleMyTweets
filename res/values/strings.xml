@@ -19,7 +19,7 @@
     <string name="logout_dialog_message">Are you sure you want to log out?</string>
     <string name="delete_tweet_dialog_message">Are you sure you want to delete this tweet?</string>
     <string name="radiobutton_time_text">Select time for tweet:</string>
-    <string name="button_select_date_text">Select Date</string>
+    <string name="button_select_date_text">Today</string>
     <string name="button_select_time_text">Select Time</string>
     <string-array name="dropdown_duration_options">
         <item>After 5 minutes</item>

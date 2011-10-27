@@ -47,11 +47,14 @@
 	            	android:layout_width="fill_parent"
 	            	android:layout_weight="1.0"
 	            	android:layout_height="wrap_content"
+	            	android:onClick="onSelectDateClick"
 	            	android:text="@string/button_select_date_text" />
+	        
 	        <Button android:id="@+id/button_select_time"
 	            	android:layout_width="fill_parent"
 	            	android:layout_height="wrap_content"
 	            	android:layout_weight="1.0"
+	            	android:onClick="onSelectTimeClick"
 	            	android:text="@string/button_select_time_text" />
 	    </LinearLayout>
     </RadioGroup>

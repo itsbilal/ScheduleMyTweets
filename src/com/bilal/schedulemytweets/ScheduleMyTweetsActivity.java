@@ -3,7 +3,7 @@ package com.bilal.schedulemytweets;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import android.app.Activity;
+import android.app.*;
 import android.util.*;
 import android.view.*;
 import android.os.Bundle;
@@ -16,6 +16,10 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 	private Hashtable<String,Integer> time_options = new Hashtable<String,Integer>();
 	
 	private String TAG="ScheduleMyTweets";
+	
+	private Integer mYear;
+	private Integer mMonth;
+	private Integer mDay;
 	
 	SQLiteTweetDB tweet_db_helper;
 	
@@ -37,6 +41,16 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         dropdown_duration.setOnItemSelectedListener(this);
         
         fill_time_options();
+        
+        // Select this one by default
+        ((RadioButton)findViewById(R.id.radiobutton_duration)).setChecked(true);
+        
+        ((Button)findViewById(R.id.button_select_date)).setTag("today");
+        
+        Calendar calendar = Calendar.getInstance();
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
     }
     
     
@@ -58,20 +72,58 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	
     	String tweet = ((EditText)findViewById(R.id.edittext_tweet)).getText().toString();
     	
-    	Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
-    	
-    	long selected_time_after = time_options.get(dropdown_duration.getSelectedItem());
-    	
     	SQLiteDatabase tweet_db = tweet_db_helper.getWritableDatabase();
     	
-    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
-    					 tweet + "', " + (((long)System.currentTimeMillis() / 1000) +
-    							          selected_time_after) + ");");
+    	if (((RadioButton)findViewById(R.id.radiobutton_time)).isChecked() == true) {
+    		
+    	} else {
+	    	Spinner dropdown_duration = (Spinner) findViewById(R.id.dropdown_duration);
+	    	
+	    	long selected_time_after = time_options.get(dropdown_duration.getSelectedItem());
+	    	
+	    	
+	    	
+	    	tweet_db.execSQL("INSERT INTO tweets (tweet, time) VALUES ('" +
+	    					 tweet + "', " + (((long)System.currentTimeMillis() / 1000) +
+	    							          selected_time_after) + ");");
+    	}
+    	
     	tweet_db.close();
     	
     	Intent backToListTweets = new Intent(this, ListTweetsActivity.class);
     	finish();
     	startActivity(backToListTweets);
+    }
+    
+    public void onSelectDateClick(View v) {
+    	((RadioButton)findViewById(R.id.radiobutton_time)).setChecked(true);
+    	
+    	DatePickerDialog.OnDateSetListener mDateSetListener =
+                new DatePickerDialog.OnDateSetListener() {
+					public void onDateSet(DatePicker arg0, int arg1, int arg2,
+							int arg3) {
+						mYear = arg1;
+						mMonth = arg2;
+						mDay = arg3;
+						
+						Calendar calendar = Calendar.getInstance();
+						calendar.set(mYear, mMonth, mDay);
+						
+						String button_label = Integer.toString(calendar.get(Calendar.DATE)) + " ";
+						button_label += String.format(Locale.US,"%tB",calendar) + ", ";
+						button_label += Integer.toString(calendar.get(Calendar.YEAR));
+						
+						((Button)findViewById(R.id.button_select_date)).setText(button_label);
+					}
+    	};
+    	
+    	DatePickerDialog dpd = new DatePickerDialog(this, mDateSetListener, mYear, mMonth, mDay);
+    	dpd.show();
+    }
+    
+    public void onSelectTimeClick(View v) {
+    	((RadioButton)findViewById(R.id.radiobutton_time)).setChecked(true);
+
     }
     
     public void onItemSelected(AdapterView<?> parent,
