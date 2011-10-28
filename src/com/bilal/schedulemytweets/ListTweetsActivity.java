@@ -12,6 +12,8 @@ import android.widget.*;
 import android.database.*;
 import android.database.sqlite.*;
 
+import com.google.ads.*;
+
 public class ListTweetsActivity extends ListActivity {
 	
 	private String TAG="ScheduleMyTweets";
@@ -20,6 +22,7 @@ public class ListTweetsActivity extends ListActivity {
 	
 	private ListAdapter tweets_list_adapter;
 	private List<Tweet> tweets_list;
+	private AdView adview;
 	
 	SQLiteTweetDB tweet_db_helper;
 	
@@ -87,6 +90,17 @@ public class ListTweetsActivity extends ListActivity {
 				startActivity(startTweetDetails);
 			}
 		});
+        
+        adview = new AdView(this,AdSize.BANNER,getString(R.string.ad_publisher_id));
+        LinearLayout layout = (LinearLayout) findViewById(R.id.linear_layout_list_tweets);
+        LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout_params.weight = 0;
+        adview.setLayoutParams(layout_params);
+        layout.addView(adview);
+        
+        AdRequest request = new AdRequest();
+        request.addTestDevice(AdRequest.TEST_EMULATOR);
+        adview.loadAd(request);
 	}
 	
 	@Override
