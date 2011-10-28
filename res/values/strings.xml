@@ -9,10 +9,11 @@
     <string name="titlebar_text">List of Scheduled Tweets</string>
     <string name="titlebar_text_newtweet">Schedule New Tweet</string>
     <string name="titlebar_text_tweetdetail">Tweet Details</string>
-    <string name="empty_tweet_list_text">No tweets scheduled yet!</string>
+    <string name="empty_tweet_list_text">No tweets scheduled yet!\n\nSchedule tweets by clicking\non the + icon at the top right\ncorner.</string>
     <string name="tweet_details_time_label">Scheduled for:</string>
     <string name="delete_tweet_button_text">Delete this tweet</string>
     <string name="menu_logout">Logout</string>
+    <string name="menu_tweet">New Tweet</string>    
     <string name="welcome_dialog_title">Welcome to Schedule My Tweets!</string>
     <string name="welcome_dialog_message">Click OK to sign in using Twitter</string>
     <string name="login_dialog_message">You\'ve been logged in!\n\nYou can now schedule tweets using the + button at the top right corner of the screen</string>

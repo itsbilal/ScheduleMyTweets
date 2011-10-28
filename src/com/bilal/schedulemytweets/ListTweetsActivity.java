@@ -128,6 +128,10 @@ public class ListTweetsActivity extends ListActivity {
 			 logout_dialog.show();
 			 
 			 return true;
+		 case R.id.menu_new_tweet:
+			 Intent start_new_tweet_activity = new Intent(this, ScheduleMyTweetsActivity.class);
+			 startActivity(start_new_tweet_activity);
+			 return true;
 		 default:
 			 return super.onOptionsItemSelected(item);
 		}
@@ -139,7 +143,7 @@ public class ListTweetsActivity extends ListActivity {
 			
 			SQLiteDatabase tweets_db = tweet_db_helper.getReadableDatabase();
 			
-			String query = "SELECT * FROM tweets WHERE time >= " + ((long)System.currentTimeMillis() / 1000);
+			String query = "SELECT * FROM tweets WHERE time >= " + ((long)System.currentTimeMillis() / 1000) + " ORDER BY time ASC";
 			Cursor cursor = tweets_db.rawQuery(query, null);
 			if (cursor == null) { // No results
 				return;
