@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, ScheduleMyTweetsActivity!</string>
-    <string name="app_name">ScheduleMyTweets</string>
+    <string name="app_name">Schedule My Tweets</string>
     <string name="dropdown_duration_prompt">Select time</string>
     <string name="duration_textview_text">Select delay for tweet: </string>
     <string name="edittext_tweet_hint">Enter tweet</string>
