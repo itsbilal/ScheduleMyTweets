@@ -103,6 +103,12 @@ public class ListTweetsActivity extends ListActivity {
         adview.loadAd(request);
 	}
 	
+    @Override
+    public void onDestroy() {
+      adview.destroy();
+      super.onDestroy();
+    }
+	
 	@Override
 	public void onResume() {
 		super.onResume();

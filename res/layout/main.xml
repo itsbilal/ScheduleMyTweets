@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="7dip"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:id="@+id/linearlayout_new_tweet"
     >
+    <LinearLayout android:orientation="vertical"
+        		  android:padding="7dip"
+        		  android:layout_weight="2"
+    			  android:layout_width="fill_parent"
+    			  android:layout_height="fill_parent" >
     <EditText android:id="@+id/edittext_tweet"
         	  android:layout_width="fill_parent"
         	  android:layout_height="wrap_content"
@@ -64,4 +69,5 @@
         	android:layout_height="wrap_content"
         	android:layout_marginTop="55px"
         	android:onClick="onButtonSubmit" />
+</LinearLayout>
 </LinearLayout>

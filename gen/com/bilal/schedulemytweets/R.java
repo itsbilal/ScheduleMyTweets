@@ -21,23 +21,24 @@ public final class R {
         public static final int icon2=0x7f020001;
     }
     public static final class id {
-        public static final int button_select_date=0x7f060009;
-        public static final int button_select_time=0x7f06000a;
-        public static final int button_submit=0x7f06000b;
-        public static final int button_tweet_delete=0x7f06000e;
-        public static final int dropdown_duration=0x7f060007;
-        public static final int edittext_tweet=0x7f060005;
+        public static final int button_select_date=0x7f06000a;
+        public static final int button_select_time=0x7f06000b;
+        public static final int button_submit=0x7f06000c;
+        public static final int button_tweet_delete=0x7f06000f;
+        public static final int dropdown_duration=0x7f060008;
+        public static final int edittext_tweet=0x7f060006;
         public static final int id1=0x7f060000;
         public static final int id2=0x7f060001;
         public static final int linear_layout_list_tweets=0x7f060004;
+        public static final int linearlayout_new_tweet=0x7f060005;
         public static final int list_tweet_time=0x7f060003;
         public static final int list_tweet_tweet=0x7f060002;
-        public static final int menu_logout=0x7f060010;
-        public static final int menu_new_tweet=0x7f06000f;
-        public static final int radiobutton_duration=0x7f060006;
-        public static final int radiobutton_time=0x7f060008;
-        public static final int tweet_details_text_view=0x7f06000c;
-        public static final int tweet_details_time_view=0x7f06000d;
+        public static final int menu_logout=0x7f060011;
+        public static final int menu_new_tweet=0x7f060010;
+        public static final int radiobutton_duration=0x7f060007;
+        public static final int radiobutton_time=0x7f060009;
+        public static final int tweet_details_text_view=0x7f06000d;
+        public static final int tweet_details_time_view=0x7f06000e;
     }
     public static final class layout {
         public static final int list_tweet_item=0x7f030000;
