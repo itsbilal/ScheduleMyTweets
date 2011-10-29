@@ -123,10 +123,10 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 	    	selected_time = selected_time + ((long)System.currentTimeMillis() / 1000);
     	}
     	
-    	String sql_exec = "INSERT INTO tweets (tweet, time) VALUES ('" +
-				 tweet + "', " + selected_time + ");";
-    	Log.d(TAG, sql_exec);
-    	tweet_db.execSQL(sql_exec);
+    	String sql_exec = "INSERT INTO tweets (tweet, time) VALUES (?, " + selected_time + ");";
+    	SQLiteStatement sql_statement = tweet_db.compileStatement(sql_exec);
+    	sql_statement.bindString(1, tweet);
+    	sql_statement.execute();
     	
     	tweet_db.close();
     	
