@@ -179,6 +179,7 @@ public class ListTweetsActivity extends ListActivity {
 				cursor.moveToNext();
 			}
 			((BaseAdapter) tweets_list_adapter).notifyDataSetChanged();
+			cursor.close();
 			tweets_db.close();
 		} catch (Exception e) {
 			e.printStackTrace();

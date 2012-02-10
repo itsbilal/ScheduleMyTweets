@@ -2,6 +2,7 @@ package com.bilal.schedulemytweets;
 
 import android.app.*;
 import android.os.*;
+import android.preference.PreferenceManager;
 import android.content.*;
 import android.util.*;
 import android.database.sqlite.*;
@@ -63,8 +64,22 @@ public class ScheduleMyTweetsService extends Service {
 		tweet_db = tweet_db_helper.getWritableDatabase();
 		
 		timer.scheduleAtFixedRate(new timer_task(), 0, 60000);
-		
-		twitter_instance = (Twitter)intent.getParcelableExtra("twitter_instance");
+		try {
+			twitter_instance = (Twitter)intent.getParcelableExtra("twitter_instance");
+		} catch (NullPointerException e) {
+			// No twitter instance was sent
+			
+			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+			if (!sp.getString("access_token", "beep").isEmpty())
+			{
+				twitter_instance = new Twitter (sp.getString("access_token", "beep"), sp.getString("access_token_secret", "beep"));
+			}
+			else
+			{
+				// User isn't logged in
+				this.stopSelf();
+			}
+		}
 		
 		return START_STICKY;
 	}

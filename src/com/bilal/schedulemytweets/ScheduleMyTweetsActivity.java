@@ -3,8 +3,6 @@ package com.bilal.schedulemytweets;
 import java.util.*;
 import java.util.regex.Pattern;
 
-import com.google.ads.*;
-
 import android.app.*;
 import android.util.*;
 import android.view.*;
@@ -18,8 +16,6 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 	private Hashtable<String,Integer> time_options = new Hashtable<String,Integer>();
 	
 	private String TAG="ScheduleMyTweets";
-	
-	private AdView adview;
 	
 	private Integer mYear;
 	private Integer mMonth;
@@ -60,7 +56,7 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = null;
         
-        adview = new AdView(this,AdSize.BANNER,getString(R.string.ad_publisher_id));
+        /*adview = new AdView(this,AdSize.BANNER,getString(R.string.ad_publisher_id));
         LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayout_new_tweet);
         LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layout_params.weight = 0;
@@ -69,13 +65,7 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         
         AdRequest request = new AdRequest();
         request.addTestDevice(AdRequest.TEST_EMULATOR);
-        adview.loadAd(request);
-    }
-    
-    @Override
-    public void onDestroy() {
-      adview.destroy();
-      super.onDestroy();
+        adview.loadAd(request); */ // Ad banner removed in version 1.0.3
     }
     
     private void fill_time_options() {
@@ -128,6 +118,7 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
     	sql_statement.bindString(1, tweet);
     	sql_statement.execute();
     	
+    	sql_statement.close();
     	tweet_db.close();
     	
     	Intent backToListTweets = new Intent(this, ListTweetsActivity.class);
