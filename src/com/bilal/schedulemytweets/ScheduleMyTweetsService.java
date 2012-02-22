@@ -70,7 +70,7 @@ public class ScheduleMyTweetsService extends Service {
 			// No twitter instance was sent
 			
 			SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-			if (!sp.getString("access_token", "beep").isEmpty())
+			if (!(sp.getString("access_token", "beep").length() == 0))
 			{
 				twitter_instance = new Twitter (sp.getString("access_token", "beep"), sp.getString("access_token_secret", "beep"));
 			}
