@@ -23,6 +23,7 @@
     <string name="button_select_date_text">Today</string>
     <string name="button_select_time_text">Select Time</string>
     <string name="toast_time_unset">Time is not set</string>
+    <string name="default_tweetchar_text">140 / 140</string>
     <string-array name="dropdown_duration_options">
         <item>After 5 minutes</item>
         <item>After 10 minutes</item>

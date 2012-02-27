@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import android.app.*;
+import android.text.*;
 import android.util.*;
 import android.view.*;
 import android.os.Bundle;
@@ -56,16 +57,8 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
         mHour = calendar.get(Calendar.HOUR_OF_DAY);
         mMinute = null;
         
-        /*adview = new AdView(this,AdSize.BANNER,getString(R.string.ad_publisher_id));
-        LinearLayout layout = (LinearLayout) findViewById(R.id.linearlayout_new_tweet);
-        LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout_params.weight = 0;
-        adview.setLayoutParams(layout_params);
-        layout.addView(adview);
-        
-        AdRequest request = new AdRequest();
-        request.addTestDevice(AdRequest.TEST_EMULATOR);
-        adview.loadAd(request); */ // Ad banner removed in version 1.0.3
+        ((EditText)findViewById(R.id.edittext_tweet)).addTextChangedListener(
+        		new UpdateTweetChars((TextView)findViewById(R.id.tweetchar_text)));
     }
     
     private void fill_time_options() {
@@ -186,5 +179,29 @@ public class ScheduleMyTweetsActivity extends Activity implements OnItemSelected
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Do nothing.
+    }
+    
+}
+
+class UpdateTweetChars implements TextWatcher{
+	TextView tv_;
+	public UpdateTweetChars (TextView tv){
+		tv_ = tv;
+	}
+    public void afterTextChanged(Editable s) {
+        try {
+            String str_tweet = s.toString();
+            Integer chars_remaining = 140 - str_tweet.length();
+            tv_.setText(chars_remaining.toString() + " / 140");
+        }
+        catch(Exception e){
+        	e.printStackTrace();
+        }
+    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // We don't need this
+    }
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        // We don't need this
     }
 }
